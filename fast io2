@@ -1,0 +1,140 @@
+
+
+import java.util.*;
+
+import java.io.*;
+
+
+class fastio2
+{
+	  static class FastReader{
+        BufferedReader br;
+        StringTokenizer st;
+        public FastReader(){
+            br=new BufferedReader(new InputStreamReader(System.in));
+        }
+        String next(){
+            while(st==null || !st.hasMoreTokens()){
+                try {
+                    st=new StringTokenizer(br.readLine());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            return st.nextToken();
+        }
+        int nextInt(){
+            return Integer.parseInt(next());
+        }
+        long nextLong(){
+            return Long.parseLong(next());
+        }
+        double nextDouble(){
+            return Double.parseDouble(next());
+        }
+        String nextLine(){
+            String str="";
+            try {
+                str=br.readLine().trim();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return str;
+        }
+    }
+    static class FastWriter {
+		private final BufferedWriter bw;
+
+		public FastWriter() {
+			this.bw = new BufferedWriter(new OutputStreamWriter(System.out));
+		}
+
+		public void print(Object object) throws IOException {
+			bw.append("" + object);
+		}
+
+		public void println(Object object) throws IOException {
+			print(object);
+			bw.append("\n");
+		}
+
+		public void close() throws IOException {
+			bw.close();
+		}
+	}
+    public static void main(String[] args) {
+
+        try {
+            FastReader in=new FastReader();
+            FastWriter out = new FastWriter();
+           
+           int testcases = in.nextInt();
+
+          
+            while(testcases-- > 0){
+            int len = in.nextInt();
+            String str = in.nextLine();
+            int val = 0;
+            StringBuilder temp = new StringBuilder();
+            
+            if( len == 1)out.println(8);
+            else{
+                
+                if( len >= 3){
+                    temp.append(str.substring(len-3,len));
+                }
+                else{
+                    temp.append(str);
+                }
+                
+                if(len >= 3){
+                    val = change(temp);
+                    
+                }
+                else {
+                    val = change(new StringBuilder(str) );
+                }
+                
+                if( val % 8 == 0){
+                    out.println(str);
+                }
+                else{
+                    int rem = val % 8;
+                    if(val % 10 >= rem){
+                        val -= rem;
+                    }
+                    else{
+                        val += rem;
+                    }
+                    
+                    StringBuilder done = new StringBuilder();
+                    if( len >= 3){
+                        done.append(str.substring(0,len-3));
+                            done.append(val);
+                        
+                    }
+                    else{
+                        done.append(val);
+                    }
+                    out.println(done);
+                }
+                
+            }
+            
+                
+            }
+            out.close();
+        } catch (Exception e) {
+            return;
+        }
+    }
+    public static int change(StringBuilder temp){
+        int num = temp.charAt(0) - '0';
+        for(int i = 1;i < temp.length(); i++ ){
+            num *= 10;
+            num += temp.charAt(i) - '0';
+        }
+        return num;
+        
+    }
+}
